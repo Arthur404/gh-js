@@ -3,6 +3,7 @@
 *.sass-cache*
 
 .idea
+*.log
 
 node_modules
 vendor
