@@ -1,19 +1,19 @@
-var $ = require("jquery");
-
-arr = [2,1,5,0,3,4,5,2,3,1,0];
-
-function water(arr) {
-    var len = arr.length;
-    var q = 0;
-
-    for (var i = 0; i < len; i++) {
-        if (isFinite(arr[i])) {
-            if (arr[i] > arr[i+1]) {
-                q = arr[i] - arr[i+1];
-                arr[i+1] = arr[i];
-            }
-        }
-    }
+function calcArgs() {
+    return arguments.length;
 }
 
-water(arr);
+function calcStringArgs() {
+    var len = 0;
+    for (var i = 0; i < arguments.length; i++) {
+        typeof arguments[i] === 'string' ? len++ : false;
+    }
+    return len;
+}
+
+function sumArgs() {
+    var sum = 0;
+    for (var i = 0; i < arguments.length; i++) {
+        typeof arguments[i] === 'number' ? sum += arguments[i] : false;
+    }
+    return sum;
+}
