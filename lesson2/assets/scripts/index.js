@@ -62,3 +62,17 @@ $(function () {
         }
     });
 });
+
+// Task 6
+(function (a) { console.log(a(function (b) { return b + b; })); })(function (c) { return c(2) * c(3); });
+
+var funcB = function (b) {
+    return b + b;
+};
+var funcA = function (a) {
+    console.log(a(funcB));
+};
+var funcC = function (c) {
+    return c(2) * c(3);
+};
+funcA(funcC);
