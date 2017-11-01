@@ -5,5 +5,5 @@ Choose the lesson and type in the following commands:
 
 ```
 npm i
-npm run watch
+npm start
 ```

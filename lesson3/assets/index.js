@@ -1,2 +1,2 @@
-var styles = require("./styles/main.scss");
-var scripts = require("./scripts/index");
+var styles = require('./styles/main.scss');
+var scripts = require('./scripts');
