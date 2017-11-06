@@ -19,7 +19,7 @@ window.onload = function () {
         var param = {
             num: numbers.value,
             let: letters.value,
-            agr: agreement.checked,
+            agr: agreement.chechecked,
             typ: type.value
         };
 
