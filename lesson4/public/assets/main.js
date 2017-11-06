@@ -130,7 +130,6 @@ var scripts = __webpack_require__(2);
     list.forEach(function (item) {
         input.addEventListener('keyup', function () {
             var reg = this.value;
-            console.log(reg);
             regexp = new RegExp(reg);
             if (regexp.test(item.textContent)) {
                 if (reg) {
