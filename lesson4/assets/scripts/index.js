@@ -45,10 +45,11 @@
 
     list = Array.prototype.slice.call(list);
 
-    list.forEach(function (item) {
-        input.addEventListener('keyup', function () {
-            var reg = this.value;
-            regexp = new RegExp(reg);
+
+    input.addEventListener('keyup', function () {
+        var reg = this.value.replace(/\\/g, '\\$&');
+        regexp = new RegExp(reg);
+        list.forEach(function (item) {
             if (regexp.test(item.textContent)) {
                 if (reg) {
                     item.innerHTML = item.textContent.replace(reg, '<span class="highlight">'+reg+'</span>');
