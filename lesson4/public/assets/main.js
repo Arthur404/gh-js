@@ -125,14 +125,11 @@ var scripts = __webpack_require__(2);
     var list = document.querySelectorAll('ul li'),
         input = document.querySelector('.task-4 input');
 
-    list = Array.prototype.slice.call(list);
-
-
     input.addEventListener('keyup', function () {
         var valInp = this.value;
         var reg = valInp.replace(/\\/g, '\\$&');
         regexp = new RegExp(reg);
-        list.forEach(function (item) {
+        Array.prototype.forEach.call(list, function (item) {
             if (regexp.test(item.textContent)) {
                 if (valInp) {
                     item.innerHTML = item.textContent.replace(valInp, '<span class="highlight">'+valInp+'</span>');
