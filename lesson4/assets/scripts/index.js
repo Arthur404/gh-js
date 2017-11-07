@@ -45,7 +45,6 @@
 
     list = Array.prototype.slice.call(list);
 
-
     input.addEventListener('keyup', function () {
         var valInp = this.value;
         var reg = valInp.replace(/\\/g, '\\$&');
