@@ -47,12 +47,13 @@
 
 
     input.addEventListener('keyup', function () {
-        var reg = this.value.replace(/\\/g, '\\$&');
+        var valInp = this.value;
+        var reg = valInp.replace(/\\/g, '\\$&');
         regexp = new RegExp(reg);
         list.forEach(function (item) {
             if (regexp.test(item.textContent)) {
-                if (reg) {
-                    item.innerHTML = item.textContent.replace(reg, '<span class="highlight">'+reg+'</span>');
+                if (valInp) {
+                    item.innerHTML = item.textContent.replace(valInp, '<span class="highlight">'+valInp+'</span>');
                 } else {
                     item.innerHTML = item.textContent;
                 }
