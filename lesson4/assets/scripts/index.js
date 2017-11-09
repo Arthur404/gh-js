@@ -55,10 +55,10 @@
                 } else {
                     item.innerHTML = item.textContent;
                 }
-                item.classList.remove('hidden');
+                item.hidden = false;
             } else {
                 item.innerHTML = item.textContent;
-                item.classList.add('hidden');
+                item.hidden = true;
             }
         })
     })
