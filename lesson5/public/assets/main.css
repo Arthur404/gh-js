@@ -1188,11 +1188,4 @@ html {
   .align-self-xl-stretch {
     align-self: stretch !important; } }
 
-.task-1, .task-4 {
-  padding: 20px;
-  border-bottom: 2px solid black; }
-
-.highlight {
-  background-color: #ecdf00; }
-
 /*# sourceMappingURL=main.css.map*/

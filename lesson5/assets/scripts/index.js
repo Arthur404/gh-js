@@ -1,65 +1,72 @@
 ;(function () {
     // Task 1
-    var form = document.querySelector('.task-1 form');
+    function arrFilter(obj) {
+        return this.filter(function (item) {
+            return repeat(item, obj);
+        });
 
-    form.addEventListener('submit', function (e) {
-        var errors = [],
-            numbers = document.querySelector('[name="numbers"]').value,
-            letters = document.querySelector('[name="letters"]').value,
-            agreement = document.querySelector('[name="agreement"]'),
-            types = document.querySelectorAll('input[name="type"]'),
-            type = 0;
-
-        if (!/^\d+$/g.test(numbers)) {
-            errors.push('Invalid numbers');
+        function repeat(selfArr, selfObj) {
+            return Object.keys(selfObj).reduce(function (curr, next) {
+                if (typeof selfObj[next] === 'object') {
+                    if (selfObj[next].constructor.name === 'RegExp') {
+                        return curr && (selfObj[next].test(selfArr[next]));
+                    } else {
+                        return repeat(selfArr[next], selfObj[next])
+                    }
+                } else {
+                    return curr && (selfObj[next] === selfArr[next]);
+                }
+            }, true)
         }
-        if (!/^[a-d]+$/.test(letters)) {
-            errors.push('Invalid letters');
-        }
-        if (!agreement.checked) {
-            errors.push('Agreement is unchecked');
-        }
-        for(var i = 0; i < types.length; i++) {
-            if(types[i].checked === true) {
-                type = types[i];
-            }
-        }
-        if (!type.checked === true) {
-            errors.push('Type is unchecked');
-        }
-        if (errors.length > 0) {
-            e.preventDefault();
-            alert(errors.join("\n"));
-        }
-    });
-
-    // Task 3
-    function findUpperCase(str) {
-        var regexp = /[a-z]*[A-Z]+[a-zA-Z]+/g;
-        return str.match(regexp);
     }
 
-    // Task 4
-    var list = document.querySelectorAll('ul li'),
-        input = document.querySelector('.task-4 input');
+    (function () {
+        Array.prototype.filterWhere = arrFilter;
 
-    input.addEventListener('keyup', function () {
-        var valInp = this.value;
-        var reg = valInp.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+        var users = [
+            {id: 1, name: 'Max', photo: {url: 'ava1.jpg', size: {width: 100, height: 50}}},
+            {id: 2, name: 'Bob', photo: {url: 'avatar.png', size: {width: 800, height: 640}}},
+            {id: 3, name: 'Nick', photo: {url: 'img.jpg', size: {width: 440, height: 320}}}
+        ];
 
-        regexp = new RegExp(reg);
-        Array.prototype.forEach.call(list, function (item) {
-            if (regexp.test(item.textContent)) {
-                if (valInp) {
-                    item.innerHTML = item.textContent.replace(regexp, '<span class="highlight">'+item.textContent.match(regexp)+'</span>');
-                } else {
-                    item.innerHTML = item.textContent;
+        var usersWithBigPhoto = users.filterWhere({photo: {size: {height: /\d{3}/}}});
+        console.log(usersWithBigPhoto);
+        delete Array.prototype.filterWhere;
+    })();
+
+    // Task 2
+    (function () {
+        function SuperArray() {
+            this.filterWhere = arrFilter;
+        }
+
+        SuperArray.prototype = Array.prototype;
+
+        var users = new SuperArray();
+        users.push({id: 1, name: 'Max', age: 18}, {id: 2, name: 'Bob', age: 20}, {id: 3, name: 'Nick', age: 18});
+        console.log(users.filterWhere({age: 18}));
+        console.log([].filterWhere);
+    })();
+
+    // Task 3
+    (function () {
+        Function.prototype.extend = function (obj) {
+            var func = this.prototype;
+
+            if (arguments.length > 0) {
+                for (var key in obj) {
+                    func[key] = obj[key];
                 }
-                item.hidden = false;
-            } else {
-                item.innerHTML = item.textContent;
-                item.hidden = true;
             }
-        })
-    })
+            return function () {
+                return func;
+            }
+        };
+
+        var SuperArray = Array.extend({
+            filterWhere: arrFilter
+        });
+        var users = new SuperArray();
+        console.log(users.push);
+    })();
 })();
