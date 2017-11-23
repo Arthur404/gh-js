@@ -6,8 +6,8 @@ module.exports = {
         main: './assets/index.js'
     },
     output: {
-        path: path.resolve(__dirname, 'public/assets'),
-        publicPath: '/public/',
+        path: path.resolve(__dirname, 'assets/dist'),
+        publicPath: './',
         filename: '[name].js'
     },
 
@@ -40,12 +40,20 @@ module.exports = {
                 test: /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
                 use: [
                     {
-                        loader: 'file-loader',
+                        loader: "file-loader",
                         options: {
-                            name: 'src/[name].[ext]'
+                            name: "src/[name].[ext]"
                         }
                     }
                 ]
+            }, {
+                test: /\.(html)$/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: [':data-src']
+                    }
+                }
             }
         ]
     },
